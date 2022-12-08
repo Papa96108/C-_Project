@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace Phoneword;
+namespace TipCalculator;
 
 public class Program
 {

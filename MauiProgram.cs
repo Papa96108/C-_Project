@@ -1,4 +1,4 @@
-﻿namespace Phoneword;
+﻿namespace TipCalculator;
 
 public static class MauiProgram
 {
