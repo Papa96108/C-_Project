@@ -1,4 +1,4 @@
-﻿namespace Phoneword;
+﻿namespace Notes;
 
 public static class MauiProgram
 {

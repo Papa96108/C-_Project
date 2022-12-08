@@ -1,54 +1,31 @@
-﻿namespace Phoneword;
+﻿namespace Notes;
 
 public partial class MainPage : ContentPage
 {
-	public MainPage()
-	{
-		InitializeComponent();
-	}
+    string _fileName = Path.Combine(FileSystem.AppDataDirectory, "notes.txt");
 
-    string translatedNumber;
-
-    private void OnTranslate(object sender, EventArgs e)
+    public MainPage()
     {
-        string enteredNumber = PhoneNumberText.Text;
-        translatedNumber = Core.PhonewordTranslator.ToNumber(enteredNumber);
+        InitializeComponent();
 
-        if (!string.IsNullOrEmpty(translatedNumber))
+        if (File.Exists(_fileName))
         {
-            CallButton.IsEnabled = true;
-            CallButton.Text = "Call " + translatedNumber;
-        }
-        else
-        {
-            CallButton.IsEnabled = false;
-            CallButton.Text = "Call";
+            editor.Text = File.ReadAllText(_fileName);
         }
     }
 
-    async void OnCall(object sender, System.EventArgs e)
+    void OnSaveButtonClicked(object sender, EventArgs e)
     {
-        if (await this.DisplayAlert(
-            "Dial a Number",
-            "Would you like to call " + translatedNumber + "?",
-            "Yes",
-            "No"))
+        File.WriteAllText(_fileName, editor.Text);
+    }
+
+    void OnDeleteButtonClicked(object sender, EventArgs e)
+    {
+        if (File.Exists(_fileName))
         {
-            try
-            {
-                if (PhoneDialer.Default.IsSupported)
-                    PhoneDialer.Default.Open(translatedNumber);
-            }
-            catch (ArgumentNullException)
-            {
-                await DisplayAlert("Unable to dial", "Phone number was not valid.", "OK");
-            }
-            catch (Exception)
-            {
-                // Other error has occurred.
-                await DisplayAlert("Unable to dial", "Phone dialing failed.", "OK");
-            }
+            File.Delete(_fileName);
         }
+        editor.Text = string.Empty;
     }
 }
 
