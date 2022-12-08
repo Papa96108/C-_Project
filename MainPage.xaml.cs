@@ -1,54 +1,31 @@
-﻿namespace Phoneword;
+﻿using People.Models;
+using System.Collections.Generic;
+
+namespace People;
 
 public partial class MainPage : ContentPage
 {
+
 	public MainPage()
 	{
 		InitializeComponent();
 	}
 
-    string translatedNumber;
-
-    private void OnTranslate(object sender, EventArgs e)
+    public void OnNewButtonClicked(object sender, EventArgs args)
     {
-        string enteredNumber = PhoneNumberText.Text;
-        translatedNumber = Core.PhonewordTranslator.ToNumber(enteredNumber);
+        statusMessage.Text = "";
 
-        if (!string.IsNullOrEmpty(translatedNumber))
-        {
-            CallButton.IsEnabled = true;
-            CallButton.Text = "Call " + translatedNumber;
-        }
-        else
-        {
-            CallButton.IsEnabled = false;
-            CallButton.Text = "Call";
-        }
+        App.PersonRepo.AddNewPerson(newPerson.Text);
+        statusMessage.Text = App.PersonRepo.StatusMessage;
     }
 
-    async void OnCall(object sender, System.EventArgs e)
+    public void OnGetButtonClicked(object sender, EventArgs args)
     {
-        if (await this.DisplayAlert(
-            "Dial a Number",
-            "Would you like to call " + translatedNumber + "?",
-            "Yes",
-            "No"))
-        {
-            try
-            {
-                if (PhoneDialer.Default.IsSupported)
-                    PhoneDialer.Default.Open(translatedNumber);
-            }
-            catch (ArgumentNullException)
-            {
-                await DisplayAlert("Unable to dial", "Phone number was not valid.", "OK");
-            }
-            catch (Exception)
-            {
-                // Other error has occurred.
-                await DisplayAlert("Unable to dial", "Phone dialing failed.", "OK");
-            }
-        }
+        statusMessage.Text = "";
+
+        List<Person> people = App.PersonRepo.GetAllPeople();
+        peopleList.ItemsSource = people;
     }
+
 }
 
