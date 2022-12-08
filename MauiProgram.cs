@@ -1,4 +1,6 @@
-﻿namespace Astronomy;
+﻿using PartsClient.Data;
+
+namespace PartsClient;
 
 public static class MauiProgram
 {

@@ -1,4 +1,4 @@
-﻿namespace Astronomy;
+﻿namespace PartsClient;
 
 public partial class App : Application
 {
