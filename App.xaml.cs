@@ -1,4 +1,4 @@
-﻿namespace Phoneword;
+﻿namespace Notes;
 
 public partial class App : Application
 {

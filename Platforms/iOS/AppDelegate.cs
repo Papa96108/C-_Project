@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace Phoneword;
+namespace Notes;
 
 [Register("AppDelegate")]
 public class AppDelegate : MauiUIApplicationDelegate
