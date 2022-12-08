@@ -1,4 +1,4 @@
-﻿namespace Phoneword;
+﻿namespace TipCalculator;
 
 public partial class App : Application
 {
