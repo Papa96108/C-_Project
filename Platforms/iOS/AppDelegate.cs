@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace Phoneword;
+namespace Astronomy;
 
 [Register("AppDelegate")]
 public class AppDelegate : MauiUIApplicationDelegate
